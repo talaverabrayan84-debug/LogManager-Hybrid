@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogManager - Infraestructura Híbrida</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        #status {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Registro de Logs (PaaS)</h2>
+    <form id="logForm">
+        <div class="form-group">
+            <label for="server">Servidor de Origen:</label>
+            <input type="text" id="server" placeholder="Ej: Ubuntu-VM-Local" required>
+        </div>
+
+        <div class="form-group">
+            <label for="level">Nivel de Log:</label>
+            <select id="level">
+                <option value="info">INFO</option>
+                <option value="warning">WARNING</option>
+                <option value="error">ERROR</option>
+                <option value="critical">CRITICAL</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Mensaje del Evento:</label>
+            <textarea id="message" rows="3" placeholder="Describe el evento..." required></textarea>
+        </div>
+
+        <button type="submit">Enviar a la Nube</button>
+    </form>
+    <div id="status"></div>
+</div>
+
+<script>
+    document.getElementById('logForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const status = document.getElementById('status');
+        status.style.color = "green";
+        status.innerText = "¡Log procesado exitosamente en el PaaS!";
+        
+        // Limpiar formulario
+        this.reset();
+        
+        setTimeout(() => { status.innerText = ""; }, 3000);
+    });
+</script>
+
+</body>
+</html>
